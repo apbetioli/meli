@@ -1,7 +1,7 @@
-MercadoLibreNode
+Meli
 ================
 
-MercadoLibreNode SDK for Node.js that supports promises.
+Mercado Libre SDK for Node.js that supports promises.
 
 ### Install  
 `npm install meli`
