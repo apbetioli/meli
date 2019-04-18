@@ -1,17 +1,14 @@
 MercadoLibreNode
 ================
 
-MercadoLibreNode SDK for Node.js
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mercadolibre/MercadoLibreNode)
-
+MercadoLibreNode SDK for Node.js that supports promises.
 
 ### Install  
-`npm install mercadolibre`
+`npm install meli`
 ### Use
 #### require:
 ```
-var meli = require('mercadolibre');
+var meli = require('meli');
 ```
 #### Constructor:
 ```
