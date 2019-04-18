@@ -1,0 +1,29 @@
+{
+  "name": "meli",
+  "version": "1.0.0",
+  "description": "A client for Mercado Libre that supports promises",
+  "main": "meli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apbetioli/meli.git"
+  },
+  "keywords": [
+    "Mercado",
+    "Libre",
+    "Mercado",
+    "Livre"
+  ],
+  "author": "Alexandre Betioli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apbetioli/meli/issues"
+  },
+  "homepage": "https://github.com/apbetioli/meli#readme",
+  "dependencies": {
+    "needle": "^2.3.0",
+    "querystring": "^0.2.0"
+  }
+}
