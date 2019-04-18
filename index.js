@@ -1,8 +1,13 @@
 const needle = require('needle');
-const config = require('./config').config;
 const querystring = require('querystring')
 
-var Meli = function (client_id, client_secret) {
+var Meli = function (client_id, client_secret, config = {
+	api_root_url: 'https://api.mercadolibre.com',
+    api_mercado_pago_url: 'https://api.mercadopago.com',
+	auth_url: 'https://auth.mercadolibre.com/authorization',
+	oauth_url: 'https://api.mercadolibre.com/oauth/token',  
+	site_id : 'MLB'
+}) {
 
   var _parameters = {
     client_id: client_id,

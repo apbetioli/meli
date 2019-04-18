@@ -1,7 +1,7 @@
 {
   "name": "meli",
   "version": "1.0.0",
-  "description": "A client for Mercado Libre that supports promises",
+  "description": "A Mercado Libre SDK client that supports promises",
   "main": "meli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
