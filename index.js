@@ -23,7 +23,7 @@ var Meli = function (client_id, client_secret, config = {
     return config.auth_url + "?" + querystring.stringify(query);
   };
 
-  this.authorize = function (code, redirect_uri) {
+  this.authorize = async function (code, redirect_uri) {
     var payload = {
       grant_type: 'authorization_code',
       client_id: _parameters.client_id,
@@ -32,16 +32,14 @@ var Meli = function (client_id, client_secret, config = {
       redirect_uri: redirect_uri
     };
     console.debug("post " + config.oauth_url + "?" + querystring.stringify(payload));
-    return needle('post', config.oauth_url, payload, { json: true }).then(res => {
-      if(res.body.error) 
-        throw res.body;
-      
-      _parameters.redirect_uri = redirect_uri;
-      return res.body;
-    });
+    const res = await needle('post', config.oauth_url, payload, { json: true });
+    if (res.body.error)
+      throw res.body;
+    _parameters.redirect_uri = redirect_uri;
+    return res.body;
   };
 
-  this.refreshAccessToken = function (refresh_token) {
+  this.refreshAccessToken = async function (refresh_token) {
     var payload = {
       grant_type: 'refresh_token',
       client_id: _parameters.client_id,
@@ -49,15 +47,13 @@ var Meli = function (client_id, client_secret, config = {
       refresh_token: refresh_token
     };
     console.debug("post " + config.oauth_url + "?" + querystring.stringify(payload));
-    return needle('post', config.oauth_url, payload, { json: true }).then(res => {
-      if(res.body.error) 
-        throw res.body;
-      
-      return res.body;
-    });
+    const res = await needle('post', config.oauth_url, payload, { json: true });
+    if (res.body.error)
+      throw res.body;
+    return res.body;
   };
 
-  this.request = function (method, path, query = {}, body, options = {
+  this.request = async function (method, path, query = {}, body, options = {
       json: true,
       headers: {
         "Content-Type": "application/json"
@@ -67,7 +63,8 @@ var Meli = function (client_id, client_secret, config = {
     console.debug(method + " " + url);
     if(body)
       console.debug(JSON.stringify(body));
-    return needle(method, url, JSON.stringify(body), options).then(res => res.body);
+    const res = await needle(method, url, JSON.stringify(body), options);
+    return res.body;
   };
 
   this.get = function (path, query) {
