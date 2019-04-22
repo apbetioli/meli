@@ -3,6 +3,9 @@ Meli
 
 Mercado Libre SDK for Node.js that supports promises.
 
+[![NPM](https://nodei.co/npm/meli.png)](https://nodei.co/npm/meli/)
+[![NPM](https://nodei.co/npm-dl/meli.png)](https://nodei.co/npm/meli/)
+
 ### Install  
 `npm install meli`
 ### Use
