@@ -1,29 +1,48 @@
-Meli
-================
+# Meli
 
 Mercado Libre SDK for Node.js that supports promises.
 
-[![NPM](https://nodei.co/npm/meli.png)](https://nodei.co/npm/meli/)
-[![NPM](https://nodei.co/npm-dl/meli.png)](https://nodei.co/npm/meli/)
+[![npm version](https://img.shields.io/npm/v/meli.svg)](https://www.npmjs.com/package/meli)
+[![npm downloads](https://img.shields.io/npm/dt/meli.svg)](https://www.npmjs.com/package/meli)
 
-### Install  
+## Install  
 `npm install meli`
-### Use
-#### require:
+
+## Usage
 ```
-var meli = require('meli');
+import meli from 'meli';
+...
+
+var client = new meli.Meli(client_id, client_secret, [access_token], [refresh_token]);
+
+const categories = await client.get('sites/MLA/categories');
+
+console.log(categories);
+
+/** prints to the console:
+[ 
+	{ id: 'MLA5725', name: 'Accesorios para Vehículos' },
+	{ id: 'MLA1071', name: 'Animales y Mascotas' },
+	{ id: 'MLA1367', name: 'Antigüedades' },
+	{ id: 'MLA1368', name: 'Arte y Artesanías' },
+	{ id: 'MLA1743', name: 'Autos, Motos y Otros' },
+	{ id: 'MLA1384', name: 'Bebés' },
+	...
+]
+*/
+
 ```
-#### Constructor:
-```
-var meliObject = new meli.Meli(client_id, client_secret, [access_token], [refresh_token]);
-```
+
+## API
+
 |Field|Type|Required|Description|
 |-----|----|--------|-----------|
 |client_id|int|yes|ID provided when creating a MELI APP (link to create app guide)|
 |client_secret|	string|	yes|	Hash string key provided when creating a MELI APP (link to create app guide)|
 |access_token	|string|	optional|	Used to talk to our API resources that require credentials (eg: POST to /items).|
 |refresh_token|	string|	optional|	Hash string provided when a user authorizes an A P. Used to get a new valid access_token (only available when offline_access scope in APP settings is checked).|
-### Authorization methods
+
+### Authorization
 #### getAuthURL
 ```
 meliObject.getAuthURL(redirect_uri)
@@ -39,91 +58,28 @@ meliObject.authorize(code, redirect_uri)
 |Field|Type|Required|Description|
 |-----|----|--------|-----------|
 code|string|yes|Code received at redirect_uri when user granted permission to the Meli APP.|
-redirect_uri|string|yes|Callback URL to which the API will send the access & refresh tokens. Must be the same as the one configured in the Meli APP settings.|
+redirect_uri|string|yes|Callback URL to which the API will send the access & refresh tokens. It must be the same as the one configured in the Meli APP settings.|
 #### refreshAccessToken
 ```
 meliObject.refreshAccessToken() 
 ```
-### Request methods
+
+### Request
 #### get
 ```
 meliObject.get(path, [params,]) 
 ```
 |Field|Type|Required|Description|
 |-----|----|--------|-----------|
-path|string|yes|API resource path to which the GET request will be sent to.|
+path|string|yes|API resource path to which the GET request will be sent.|
 params|object|optional|Additional params (if required).|
-##### Examples
-```
-//Get categories from mercado libre argentina
-meliObject.get('sites/MLA/categories').then(res => {
-    /** returns:
-		res = [ 
-				{ id: 'MLA5725', name: 'Accesorios para Vehículos' },
-				{ id: 'MLA1071', name: 'Animales y Mascotas' },
-				{ id: 'MLA1367', name: 'Antigüedades' },
-				{ id: 'MLA1368', name: 'Arte y Artesanías' },
-				{ id: 'MLA1743', name: 'Autos, Motos y Otros' },
-				{ id: 'MLA1384', name: 'Bebés' },
-				...
-			]
-	*/
-});
-//Get users with ids 145925943 and 145925951
-meliObject.get('users', {
-    ids: [145925943, 145925951]
-}).then(res => {
-   /** returns:
-		res = [ 
-				{ 
-					id: 145925943,
-				    nickname: 'TETE2780570',
-				    registration_date: '2013-09-17T14:20:30.000-04:00',
-				    country_id: 'AR',
-				    address: { state: 'AR-C', city: 'Palermo' },
-				    user_type: 'normal',
-				    tags: [ 'normal', 'test_user', 'user_info_verified' ],
-				    logo: null,
-				    points: 100,
-				    site_id: 'MLA',
-				    permalink: 'http://perfil.mercadolibre.com.ar/TETE2780570',
-				    seller_reputation:
-				     { level_id: null,
-				       power_seller_status: null,
-				       transactions: [Object] },
-				    buyer_reputation: { tags: [] },
-				    status: { site_status: 'deactive' } 
-				},
-				{
-					id: 145925951,
-				    nickname: 'TETE1341752',
-				    registration_date: '2013-09-17T14:20:43.000-04:00',
-				    country_id: 'AR',
-				    address: { state: 'AR-C', city: 'Palermo' },
-				    user_type: 'normal',
-				    tags: [ 'normal', 'test_user', 'user_info_verified' ],
-				    logo: null,
-				    points: 100,
-				    site_id: 'MLA',
-				    permalink: 'http://perfil.mercadolibre.com.ar/TETE1341752',
-				    seller_reputation:
-				     { level_id: null,
-				       power_seller_status: null,
-				       transactions: [Object] },
-				    buyer_reputation: { tags: [] },
-				    status: { site_status: 'deactive' } 
-				}
-			]
-	*/
-});
-```
 #### post
 ```
 meliObject.post(path, body, [params,]) 
 ```
 |Field|Type|Required|Description|
 |-----|----|--------|-----------|
-path|string|yes|API resource path to which the POST request will be sent to.|
+path|string|yes|API resource path to which the POST request will be sent.|
 body|object|yes|Body to be sent when executing the POST request.
 params|object|optional|Additional params (if required).|
 #### upload (post with multipart)
@@ -132,7 +88,7 @@ meliObject.upload(path, body, [params,])
 ```
 |Field|Type|Required|Description|
 |-----|----|--------|-----------|
-path|string|yes|API resource path to which the POST request will be sent to.|
+path|string|yes|API resource path to which the POST request will be sent.|
 body|object|yes|Body to be sent when executing the POST request.
 params|object|optional|Additional params (if required).|
 #### put
@@ -141,7 +97,7 @@ meliObject.put(path, body, [params,])
 ```
 |Field|Type|Required|Description|
 |-----|----|--------|-----------|
-path|string|yes|API resource path to which the PUT request will be sent to.|
+path|string|yes|API resource path to which the PUT request will be sent.|
 body|object|yes|Body to be sent when executing the PUT request.
 params|object|optional|Additional params (if required).|
 #### delete
@@ -150,22 +106,6 @@ meliObject.delete(path, [params,])
 ```
 |Field|Type|Required|Description|
 |-----|----|--------|-----------|
-path|string|yes|API resource path to which the DELETE request will be sent to.|
+path|string|yes|API resource path to which the DELETE request will be sent.|
 params|object|optional|Additional params (if required).|
-
-#### Details necessary
-In all cases the response is a Promise.
-
-The object passed in the params parameter in functions get, post, put and delete. Is automatically converted to a query string  
-
-Example:
-```
-meliObject.get('/users/', {ids: [77169310, 1231233]})
-.then(body => console.log(body))
-.catch(error => console.error(error));
-```
-The request is get ​​to the following address:
-```
-https://api.mercadolibre.com/users/?ids=77169310,1231233
-```
 
